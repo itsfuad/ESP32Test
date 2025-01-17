@@ -30,7 +30,7 @@ This project is designed to run diagnostic tests on an ESP32 microcontroller. It
 
 ## Usage
 
-1. Open the `dig.ino` file in the Arduino IDE.
+1. Open the `ESP32Test.ino` file in the Arduino IDE.
 2. Select the appropriate board and port from the Tools menu.
 3. Upload the sketch to the ESP32 board.
 4. Open the Serial Monitor to view the diagnostic results.
