@@ -8,6 +8,8 @@
 #include "esp_system.h"
 #include "esp_chip_info.h"
 #include "esp_adc_cal.h"
+#include "mbedtls/aes.h"
+#include "mbedtls/sha256.h"
 
 // Constants for GPIO tests
 const int TEST_GPIO_OUTPUT = 4;  // GPIO to test output
@@ -33,6 +35,7 @@ void setup() {
     testWiFi();
     testPSRAM();
     testTimer();
+    testCrypto();
     Serial.println("Going to deep sleep for 10 seconds");
     esp_deep_sleep(10e6);
   } else {
@@ -195,6 +198,54 @@ void testTimer() {
   
   Serial.printf("Timer test (should be ~1000000 microseconds): %lu\n", elapsed);
   Serial.printf("Timer accuracy: %.2f%%\n", (abs(elapsed - 1000000.0) / 1000000.0) * 100);
+}
+
+void testCrypto() {
+  Serial.println("\n=== Crypto Test ===");
+
+  // Test SHA-256 hashing
+  const char* testString = "Hello, ESP32!";
+  unsigned char sha256Hash[32];
+  mbedtls_sha256_context sha256_ctx;
+  mbedtls_sha256_init(&sha256_ctx);
+  mbedtls_sha256_starts(&sha256_ctx, 0);
+  mbedtls_sha256_update(&sha256_ctx, (const unsigned char*)testString, strlen(testString));
+  mbedtls_sha256_finish(&sha256_ctx, sha256Hash);
+  mbedtls_sha256_free(&sha256_ctx);
+
+  Serial.print("SHA-256 hash: ");
+  for (int i = 0; i < 32; i++) {
+    Serial.printf("%02x", sha256Hash[i]);
+  }
+  Serial.println();
+
+  // Test AES encryption/decryption
+  const char* aesKey = "1234567890123456"; // 16 bytes key for AES-128
+  const char* aesPlainText = "ESP32 AES Test";
+  uint8_t aesCipherText[16];
+  uint8_t aesDecryptedText[16];
+  mbedtls_aes_context aes;
+  mbedtls_aes_init(&aes);
+  mbedtls_aes_setkey_enc(&aes, (const unsigned char*)aesKey, 128);
+  mbedtls_aes_crypt_ecb(&aes, MBEDTLS_AES_ENCRYPT, (const unsigned char*)aesPlainText, aesCipherText);
+
+  Serial.print("AES encrypted text: ");
+  for (int i = 0; i < 16; i++) {
+    Serial.printf("%02x", aesCipherText[i]);
+  }
+  Serial.println();
+
+  mbedtls_aes_setkey_dec(&aes, (const unsigned char*)aesKey, 128);
+  mbedtls_aes_crypt_ecb(&aes, MBEDTLS_AES_DECRYPT, aesCipherText, aesDecryptedText);
+
+  Serial.print("AES decrypted text: ");
+  for (int i = 0; i < 16; i++) {
+    Serial.printf("%c", aesDecryptedText[i]);
+  }
+  Serial.println();
+
+  mbedtls_aes_free(&aes);
+  esp_aes_free(&aes);
 }
 
 void loop() {
