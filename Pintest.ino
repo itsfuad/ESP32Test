@@ -36,6 +36,7 @@ void setup() {
     Serial.println("Going to deep sleep for 10 seconds");
     esp_deep_sleep(10e6);
   } else {
+    Serial.println("Woke up from deep sleep");
     Serial.println("\n=== Diagnostic Test Complete ===");
     Serial.println("All cycles completed.");
   }
