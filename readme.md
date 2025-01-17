@@ -1,41 +1,48 @@
-# ESP32 Pin Testing Project
+# ESP32 Diagonstic Project
+## Overview
 
-This project is designed to test various hardware functionalities of the ESP32 development board.
+This project is designed to run diagnostic tests on an ESP32 microcontroller. It includes various tests to check the functionality of different components and peripherals of the ESP32.
 
-## Features Tested
+## Features
 
-- GPIO Output Testing
-- ADC (Analog-to-Digital Converter) Testing
-- WiFi Connectivity Testing
-- FreeRTOS Task Scheduler Testing
-- CPU Temperature Monitoring
+- **System Information**: Displays CPU cores, revision, and frequency.
+- **Memory Test**: Checks the available heap and PSRAM.
+- **Flash Test**: Verifies the flash memory.
+- **GPIO Test**: Tests the input and output functionality of GPIO pins.
+- **ADC Test**: Reads values from an ADC pin.
+- **WiFi Test**: Connects to a WiFi network and checks connectivity.
+- **PSRAM Test**: Verifies the PSRAM functionality.
+- **Timer Test**: Tests the timer functionality.
 
-## Hardware Requirements
+## Requirements
 
-- ESP32 Development Board
-- USB Cable
-- Computer with Arduino IDE
+- ESP32 board
+- Arduino IDE
+- Required libraries:
+    - Preferences
+    - WiFi
 
-## Setup Instructions
+## Installation
 
-1. Clone this repository
-2. Open `Pintest.ino` in Arduino IDE
-3. Connect your ESP32 board
-4. Upload the code
-5. Open Serial Monitor at 115200 baud rate
+1. Install the Arduino IDE from [here](https://www.arduino.cc/en/software).
+2. Install the required libraries via the Arduino Library Manager.
+3. Clone this repository to your local machine.
 
-## Test Process
+## Usage
 
-The program runs a series of self-tests automatically on startup:
-1. Tests GPIO functionality
-2. Tests ADC readings
-3. Verifies WiFi initialization
-4. Checks RTOS task creation
-5. Monitors CPU temperature for 10 seconds
+1. Open the `dig.ino` file in the Arduino IDE.
+2. Select the appropriate board and port from the Tools menu.
+3. Upload the sketch to the ESP32 board.
+4. Open the Serial Monitor to view the diagnostic results.
 
-## Configuration
+## License
 
-The project uses standard ESP32 configurations including:
-- ADC with 12-bit resolution
-- 80MHz Flash frequency
-- Serial communication at 115200 baud
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## Contact
+
+For any questions or inquiries, please contact the project maintainer.
