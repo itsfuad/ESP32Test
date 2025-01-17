@@ -7,6 +7,7 @@
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\variants\\esp32/**",
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\WiFi\\src/**",
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Network\\src/**",
+        "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Preferences\\src/**",
         "C:\\Users\\Fuad Hasan\\Documents\\Arduino\\libraries/**",
         "D:\\dev\\ESP32\\Pintest/**",
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.1-632e0c2a\\esp32\\include/**"
@@ -47,6 +48,7 @@
         "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\variants\\esp32",
         "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\WiFi\\src",
         "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Network\\src",
+        "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Preferences\\src",
         "@D:\\dev\\ESP32\\Pintest\\build/build_opt.h",
         "@D:\\dev\\ESP32\\Pintest\\build/file_opts",
         "D:\\dev\\ESP32\\Pintest\\build\\sketch\\Pintest.ino.cpp",
