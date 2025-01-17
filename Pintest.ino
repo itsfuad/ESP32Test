@@ -14,21 +14,31 @@ const int TEST_GPIO_OUTPUT = 4;  // GPIO to test output
 const int TEST_GPIO_INPUT = 5;   // GPIO to test input
 const int ADC_PIN = 36;          // ADC pin to test (VP)
 
+// Counter to track the number of deep sleep cycles
+RTC_DATA_ATTR int sleepCounter = 0;
+
 void setup() {
   Serial.begin(115200);
   delay(1000);
   Serial.println("\n=== ESP32 Arduino Diagnostic Test ===\n");
-  
-  testSystem();
-  testMemory();
-  testFlash();
-  testGPIO();
-  testADC();
-  testWiFi();
-  testPSRAM();
-  testTimer();
-  
-  Serial.println("\n=== Diagnostic Test Complete ===");
+
+  Serial.printf("Deep sleep cycle count: %d\n", sleepCounter);
+
+  if (sleepCounter == 0) { // Limit to 1 cycles
+    testSystem();
+    testMemory();
+    testFlash();
+    testGPIO();
+    testADC();
+    testWiFi();
+    testPSRAM();
+    testTimer();
+    Serial.println("Going to deep sleep for 10 seconds");
+    esp_deep_sleep(10e6);
+  } else {
+    Serial.println("\n=== Diagnostic Test Complete ===");
+    Serial.println("All cycles completed.");
+  }
 }
 
 void testSystem() {
