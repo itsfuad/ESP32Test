@@ -17,41 +17,35 @@ const int TEST_GPIO_OUTPUT = 4;  // GPIO to test output
 const int TEST_GPIO_INPUT = 5;   // GPIO to test input
 const int ADC_PIN = 36;          // ADC pin to test (VP)
 
-// Counter to track the number of deep sleep cycles
-RTC_DATA_ATTR int sleepCounter = 0;
-
-#line 22 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 19 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void setup();
-#line 48 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
-void testSystem();
-#line 75 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 38 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+int testSystem();
+#line 72 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testMemory();
-#line 93 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 90 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testFlash();
-#line 115 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 112 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testGPIO();
-#line 136 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 133 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testADC();
-#line 153 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 150 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testWiFi();
-#line 172 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 169 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testPSRAM();
-#line 192 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 189 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testTimer();
-#line 203 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 200 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void testCrypto();
-#line 251 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 248 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void loop();
-#line 22 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
+#line 19 "D:\\dev\\ESP32\\ESP32Test\\ESP32Test.ino"
 void setup() {
   Serial.begin(115200);
   delay(1000);
   Serial.println("\n=== ESP32 Arduino Diagnostic Test ===\n");
 
-  Serial.printf("Deep sleep cycle count: %d\n", sleepCounter);
-
-  if (sleepCounter == 0) { // Limit to 1 cycles
-    testSystem();
+  if (testSystem() == 0) {
     testMemory();
     testFlash();
     testGPIO();
@@ -62,14 +56,10 @@ void setup() {
     testCrypto();
     Serial.println("Going to deep sleep for 10 seconds");
     esp_deep_sleep(10e6);
-  } else {
-    Serial.println("Woke up from deep sleep");
-    Serial.println("\n=== Diagnostic Test Complete ===");
-    Serial.println("All cycles completed.");
   }
 }
 
-void testSystem() {
+int testSystem() {
   Serial.println("=== System Information ===");
   
   // CPU information
@@ -90,10 +80,17 @@ void testSystem() {
     case ESP_RST_PANIC: Serial.println("Exception/Panic"); break;
     case ESP_RST_INT_WDT: Serial.println("Interrupt watchdog"); break;
     case ESP_RST_TASK_WDT: Serial.println("Task watchdog"); break;
-    case ESP_RST_DEEPSLEEP: Serial.println("Deep sleep"); break;
+    case ESP_RST_DEEPSLEEP: {
+      Serial.println("Woke up from deep sleep");
+      Serial.println("\n=== Diagnostic Test Complete ===");
+      Serial.println("All cycles completed.");
+      return -1;
+    }
     case ESP_RST_BROWNOUT: Serial.println("Brownout"); break;
     default: Serial.println("Unknown"); break;
   }
+
+  return 0;
 }
 
 void testMemory() {

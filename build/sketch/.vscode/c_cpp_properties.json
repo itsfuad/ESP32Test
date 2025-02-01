@@ -10,7 +10,7 @@
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Network\\src/**",
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Preferences\\src/**",
         "C:\\Users\\Fuad Hasan\\Documents\\Arduino\\libraries/**",
-        "D:\\dev\\ESP32\\Pintest/**",
+        "D:\\dev\\ESP32\\ESP32Test/**",
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.1-632e0c2a\\esp32\\include/**"
       ],
       "forcedInclude": [
@@ -40,7 +40,7 @@
         "-DARDUINO_EVENT_RUNNING_CORE=1",
         "-DARDUINO_USB_CDC_ON_BOOT=0",
         "@C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.1-632e0c2a\\esp32/flags/defines",
-        "-ID:\\dev\\ESP32\\Pintest",
+        "-ID:\\dev\\ESP32\\ESP32Test",
         "-iprefix",
         "C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.1-632e0c2a\\esp32/include/",
         "@C:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.1-632e0c2a\\esp32/flags/includes",
@@ -50,11 +50,11 @@
         "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\WiFi\\src",
         "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Network\\src",
         "-IC:\\Users\\Fuad Hasan\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.0.7\\libraries\\Preferences\\src",
-        "@D:\\dev\\ESP32\\Pintest\\build/build_opt.h",
-        "@D:\\dev\\ESP32\\Pintest\\build/file_opts",
-        "D:\\dev\\ESP32\\Pintest\\build\\sketch\\Pintest.ino.cpp",
+        "@D:\\dev\\ESP32\\ESP32Test\\build/build_opt.h",
+        "@D:\\dev\\ESP32\\ESP32Test\\build/file_opts",
+        "D:\\dev\\ESP32\\ESP32Test\\build\\sketch\\ESP32Test.ino.cpp",
         "-o",
-        "D:\\dev\\ESP32\\Pintest\\build\\sketch\\Pintest.ino.cpp.o"
+        "D:\\dev\\ESP32\\ESP32Test\\build\\sketch\\ESP32Test.ino.cpp.o"
       ],
       "defines": [
         "F_CPU=240000000L",

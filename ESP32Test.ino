@@ -16,18 +16,12 @@ const int TEST_GPIO_OUTPUT = 4;  // GPIO to test output
 const int TEST_GPIO_INPUT = 5;   // GPIO to test input
 const int ADC_PIN = 36;          // ADC pin to test (VP)
 
-// Counter to track the number of deep sleep cycles
-RTC_DATA_ATTR int sleepCounter = 0;
-
 void setup() {
   Serial.begin(115200);
   delay(1000);
   Serial.println("\n=== ESP32 Arduino Diagnostic Test ===\n");
 
-  Serial.printf("Deep sleep cycle count: %d\n", sleepCounter);
-
-  if (sleepCounter == 0) { // Limit to 1 cycles
-    testSystem();
+  if (testSystem() == 0) {
     testMemory();
     testFlash();
     testGPIO();
@@ -36,26 +30,13 @@ void setup() {
     testPSRAM();
     testTimer();
     testCrypto();
+    Serial.println("\n=== Deep sleep ===");
     Serial.println("Going to deep sleep for 10 seconds");
     esp_deep_sleep(10e6);
-  } else {
-    Serial.println("Woke up from deep sleep");
-    Serial.println("\n=== Diagnostic Test Complete ===");
-    Serial.println("All cycles completed.");
   }
 }
 
-void testSystem() {
-  Serial.println("=== System Information ===");
-  
-  // CPU information
-  esp_chip_info_t chip_info;
-  esp_chip_info(&chip_info);
-  
-  Serial.printf("CPU Cores: %d\n", chip_info.cores);
-  Serial.printf("CPU Revision: %d\n", chip_info.revision);
-  Serial.printf("CPU Frequency: %d MHz\n", getCpuFrequencyMhz());
-  
+int testSystem() {
   // Reset reason
   esp_reset_reason_t reason = esp_reset_reason();
   Serial.print("Reset reason: ");
@@ -66,10 +47,27 @@ void testSystem() {
     case ESP_RST_PANIC: Serial.println("Exception/Panic"); break;
     case ESP_RST_INT_WDT: Serial.println("Interrupt watchdog"); break;
     case ESP_RST_TASK_WDT: Serial.println("Task watchdog"); break;
-    case ESP_RST_DEEPSLEEP: Serial.println("Deep sleep"); break;
+    case ESP_RST_DEEPSLEEP: {
+      Serial.println("Woke up from deep sleep");
+      Serial.println("\n=== Diagnostic Test Complete ===");
+      Serial.println("All cycles completed.");
+      return -1;
+    }
     case ESP_RST_BROWNOUT: Serial.println("Brownout"); break;
     default: Serial.println("Unknown"); break;
   }
+
+  Serial.println("=== System Information ===");
+  
+  // CPU information
+  esp_chip_info_t chip_info;
+  esp_chip_info(&chip_info);
+  
+  Serial.printf("CPU Cores: %d\n", chip_info.cores);
+  Serial.printf("CPU Revision: %d\n", chip_info.revision);
+  Serial.printf("CPU Frequency: %d MHz\n", getCpuFrequencyMhz());
+
+  return 0;
 }
 
 void testMemory() {
